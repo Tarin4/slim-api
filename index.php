@@ -22,7 +22,11 @@ $app->addErrorMiddleware(true, true, true);
 
 // 2. Database Connection Helper
 function getDB() {
-    $db = new PDO('mysql:host=sql308.infinityfree.com;dbname=if0_42268328_books;charset=utf8mb4', 'if0_42268328', 'utmbooks');
+    $db = new PDO(
+        'mysql:host=mysql.railway.internal;dbname=railway;port=3306;charset=utf8mb4',
+        'root',
+        'OMheAhpAjPiXyAWbFWzXTKYwwbOOextq'
+    );
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $db;
 }
@@ -56,7 +60,6 @@ $app->post('/auth/login/', $loginHandler);
 $getBooksHandler = function (Request $request, Response $response) {
     $db = getDB();
     
-    // Automatically capture any search terms sent by the frontend search bar
     $queryParams = $request->getQueryParams();
     $search = $queryParams['search'] ?? $queryParams['query'] ?? $queryParams['title'] ?? '';
 
